@@ -1,12 +1,20 @@
 package com.naijagis4me.v1.models;
 
 import com.naijagis4me.v1.enums.AvailabilityForWork;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
 @Entity
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Skill extends Base implements Serializable {
 
     @Id
@@ -22,13 +30,16 @@ public class Skill extends Base implements Serializable {
     private String yearsOfExperience;
 
     @Column(length = 1000)
-    private String aboutYourAchievemnts;
+    private String aboutYourAchievements;
 
     @Enumerated
     private AvailabilityForWork availabilityForWork;
 
-    @OneToMany(mappedBy = "skill", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Rating> ratings;
+//    @Transient
+//    private Set<Rating> ratings;
+    @ManyToOne
+    @JoinColumn(name = "artisanId")
+    private Artisan artisan;
 
     private String durationTaskTook;
 }

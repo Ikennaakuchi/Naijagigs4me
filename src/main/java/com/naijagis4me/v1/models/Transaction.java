@@ -19,6 +19,7 @@ public class Transaction extends Base implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Long transactionId;
 
     private double totalAmountJobDone;
@@ -29,9 +30,10 @@ public class Transaction extends Base implements Serializable {
 
     private PaymentStatus paymentStatus;
 
-//    @OneToOne
-//    private Customer customer;
-//
-//    @OneToOne
-//    private Artisan artisan;
+    @OneToOne
+    @JoinColumn(name = "clientId", nullable = false)
+    private Client client;
+
+    @OneToOne
+    private Artisan artisan;
 }

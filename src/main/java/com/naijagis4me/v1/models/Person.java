@@ -17,7 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class Person extends Base implements Serializable {
+public abstract class Person extends Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "person_id", nullable = false)
@@ -52,8 +52,7 @@ public abstract class Person extends Base implements Serializable {
     @Column(nullable = false)
     private boolean verificationStatus;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Address> addresses;
+    private Address addresses;
 
     private String verified;
 

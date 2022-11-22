@@ -21,7 +21,7 @@ public class Rating extends Base implements Serializable {
     @Column(length = 500)
     private String ratingContent;
 
-    @ManyToOne
-    @JoinColumn(name = "skillId", nullable = false)
-    private Skill skill;
+    @OneToOne
+    @JoinColumn(name = "requestId", nullable = false)
+    private Request request;
 }

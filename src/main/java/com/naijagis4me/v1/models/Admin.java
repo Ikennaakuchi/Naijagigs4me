@@ -1,8 +1,9 @@
 package com.naijagis4me.v1.models;
 
+import com.naijagis4me.v1.enums.Role;
 import lombok.*;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
@@ -12,5 +13,11 @@ import javax.persistence.Entity;
 @ToString
 public class Admin extends Person {
 
-    private String Role;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "admin_id", nullable = false)
+    private Long adminId;
+
+    @Enumerated
+    private Role role;
 }

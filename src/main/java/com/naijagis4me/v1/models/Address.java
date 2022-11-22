@@ -3,19 +3,16 @@ package com.naijagis4me.v1.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-@Entity
-@Table(name ="address")
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "address_id", nullable = false)
-    private Long addressId;
+@MappedSuperclass
+abstract class Address extends Base implements Serializable {
+
 
     @Column(name = "country", nullable = false)
     private String country;
@@ -26,7 +23,4 @@ public class Address {
     @Column(name = "home_address", nullable = false)
     private String homeAddress;
 
-    @ManyToOne
-    @JoinColumn(name = "person_id",nullable = false)
-    private Person person;
 }

@@ -28,8 +28,8 @@ public class AccountDetails {
     @Column(name = "bank_name", nullable = false)
     private String bankName;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JoinColumn(name ="artisan_id")
+    @ManyToOne
+    @JoinColumn(name ="artisanId", nullable = false)
     private Artisan artisan;
 
 }

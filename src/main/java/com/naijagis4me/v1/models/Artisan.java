@@ -23,9 +23,6 @@ public class Artisan extends Person implements Serializable {
     @Column(name = "artisan_id", nullable = false)
     private Long artisanId;
 
-   /* @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name ="skill_id")
-    private Set<Skill> skill;*/
 
     @Enumerated
     @Column(name = "verification_status", nullable = false)
@@ -39,7 +36,9 @@ public class Artisan extends Person implements Serializable {
     @Column(name = "task_status", nullable = false)
     private TaskStatus taskStatus;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name ="account_id")
+    @OneToMany(mappedBy = "artisan",cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Skill> skill;
+
+    @OneToMany(mappedBy = "artisan", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<AccountDetails> accountDetails;
 }

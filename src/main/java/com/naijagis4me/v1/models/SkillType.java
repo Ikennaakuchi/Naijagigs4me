@@ -1,5 +1,6 @@
 package com.naijagis4me.v1.models;
 
+import com.naijagis4me.v1.enums.NameOfSkills;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class SkillType extends Base implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long skillTypeId;
 
+    @Enumerated
     @Column(nullable = false, unique = true)
-    private String nameOfSkill;
+    private NameOfSkills nameOfSkill;
 }

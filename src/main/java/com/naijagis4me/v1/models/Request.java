@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -22,7 +23,12 @@ public class Request extends Base implements Serializable {
     @JoinColumn(name = "skillId")
     private Skill skill;
 
+    @OneToOne
+    @JoinColumn(name = "ratingId")
+    private Rating rating;
+
     @ManyToOne
-    @JoinColumn(name = "clientId", nullable = false)
+    @JoinColumn(name = "personId", nullable = false)
     private Client client;
+
 }
