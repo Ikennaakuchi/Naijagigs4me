@@ -1,9 +1,6 @@
 package com.naijagis4me.v1.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +8,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name ="address")
 public class Address {
