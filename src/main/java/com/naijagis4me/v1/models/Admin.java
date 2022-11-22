@@ -11,5 +11,6 @@ import javax.persistence.Entity;
 @Getter
 @ToString
 public class Admin extends Person {
+
     private String Role;
 }

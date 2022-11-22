@@ -57,5 +57,4 @@ public abstract class Person extends Base implements Serializable {
 
     private String verified;
 
-
 }

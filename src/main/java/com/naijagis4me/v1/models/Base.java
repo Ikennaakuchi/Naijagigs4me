@@ -17,10 +17,6 @@ import java.time.LocalDateTime;
 @Setter
 @MappedSuperclass
 public abstract class Base {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long baseId;
 
     @CreationTimestamp
     private LocalDate createdAt;

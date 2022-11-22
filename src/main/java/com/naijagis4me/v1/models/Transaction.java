@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Setter
 @Getter
-public class Transaction implements Serializable {
+public class Transaction extends Base implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

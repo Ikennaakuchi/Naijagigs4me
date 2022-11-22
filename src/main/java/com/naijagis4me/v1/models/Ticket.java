@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Setter
 @Getter
-public class Ticket implements Serializable {
+public class Ticket extends Base implements Serializable {
 
     @Id
     @Column(nullable = false)
