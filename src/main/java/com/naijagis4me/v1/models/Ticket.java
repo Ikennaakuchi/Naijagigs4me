@@ -31,8 +31,8 @@ public class Ticket implements Serializable {
 
     private Long adminId;
 
-    @Column(nullable = false)
-    @OneToOne(mappedBy = "requestId")
-    private Request request;
+//    @Column(nullable = false)
+//    @OneToOne(mappedBy = "requestId")
+//    private Request request;
 
 }

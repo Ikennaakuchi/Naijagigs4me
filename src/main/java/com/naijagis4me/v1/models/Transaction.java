@@ -29,9 +29,9 @@ public class Transaction implements Serializable {
 
     private PaymentStatus paymentStatus;
 
-    @OneToOne
-    private Customer customer;
-
-    @OneToOne
-    private Artisan artisan;
+//    @OneToOne
+//    private Customer customer;
+//
+//    @OneToOne
+//    private Artisan artisan;
 }
