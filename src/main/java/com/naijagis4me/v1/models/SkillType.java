@@ -7,17 +7,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class SkillType extends Base implements Serializable {
+public class SkillType extends Base {
 
-    @Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long skillTypeId;
 
     @Enumerated
     @Column(nullable = false, unique = true)

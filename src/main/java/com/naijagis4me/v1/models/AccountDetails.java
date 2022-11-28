@@ -8,16 +8,14 @@ import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@ToString
+@Data
 @Entity
 @Table(name = "account_id")
-public class AccountDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "account_id", nullable = false)
-    private Long accountId;
+public class AccountDetails extends Base {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name = "account_id", nullable = false)
+//    private Long accountId;
 
     @Column(name = "account_name", nullable = false)
     private String accountName;
@@ -28,8 +26,7 @@ public class AccountDetails {
     @Column(name = "bank_name", nullable = false)
     private String bankName;
 
-    @ManyToOne
-    @JoinColumn(name ="artisanId", nullable = false)
-    private Artisan artisan;
+    @Column(nullable = false)
+    private Long artisanId;
 
 }

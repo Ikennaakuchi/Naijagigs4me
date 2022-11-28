@@ -12,16 +12,9 @@ import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@ToString
+@Data
 @Entity
-@Table(name = "artisan")
-public class Artisan extends Person implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "artisan_id", nullable = false)
-    private Long artisanId;
+public class Artisan extends Person {
 
 
     @Enumerated
@@ -39,6 +32,6 @@ public class Artisan extends Person implements Serializable {
     @OneToMany(mappedBy = "artisan",cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Skill> skill;
 
-    @OneToMany(mappedBy = "artisan", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "artisanId", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<AccountDetails> accountDetails;
 }
