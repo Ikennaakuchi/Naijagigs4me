@@ -7,11 +7,9 @@ import java.io.Serializable;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
-@MappedSuperclass
-abstract class Address extends Base implements Serializable {
+@Data
+@Entity
+public class Address extends Base {
 
 
     @Column(name = "country", nullable = false)

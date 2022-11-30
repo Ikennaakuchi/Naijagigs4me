@@ -7,28 +7,21 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class Request extends Base implements Serializable {
-
-    @Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long requestId;
+public class Request extends Base {
 
     @OneToOne
-    @JoinColumn(name = "skillId")
+    @JoinColumn(name = "Id")
     private Skill skill;
 
     @OneToOne
-    @JoinColumn(name = "ratingId")
+    @JoinColumn(name = "Id")
     private Rating rating;
 
     @ManyToOne
-    @JoinColumn(name = "personId", nullable = false)
+    @JoinColumn(name = "Id", nullable = false)
     private Client client;
 
 }

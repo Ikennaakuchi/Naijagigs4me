@@ -2,10 +2,7 @@ package com.naijagis4me.v1.models;
 
 import com.naijagis4me.v1.enums.ComplaintType;
 import com.naijagis4me.v1.enums.TicketStatus;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,18 +11,9 @@ import java.time.LocalDateTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-public class Ticket extends Base implements Serializable {
+@Data
+public class Ticket extends Base {
 
-    @Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ticketId;
-
-    @ManyToOne
-    @JoinColumn(name = "adminId")
-    private Admin adminAssignedTo;
 
     @Enumerated
     @Column(name = "ticket_status", nullable = false)
@@ -37,7 +25,7 @@ public class Ticket extends Base implements Serializable {
 
     private LocalDateTime completedAt;
 
-    @Column(length = 500)
+    @Column(length = 1000)
     private String ticketContent;
     
     @ManyToOne

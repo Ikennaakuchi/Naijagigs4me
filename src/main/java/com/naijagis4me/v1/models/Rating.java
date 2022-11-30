@@ -1,27 +1,26 @@
 package com.naijagis4me.v1.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Rating extends Base implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Rating extends Base {
 
-    @Id
     @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ratingId;
+    private Long artisanId;
 
-    @ManyToOne
-    @JoinColumn(name = "artisanId", nullable = false)
-    private Artisan aritsan;
-
-    @Column(length = 10)
-    private int ratingScaleNumber;
+    private double ratingScaleNumber;
 
     @Column(length = 500)
     private String ratingContent;
 
-    @OneToOne
-    @JoinColumn(name = "requestId", nullable = false)
-    private Request request;
+    @Column(nullable = false)
+    private Long requestId;
 }

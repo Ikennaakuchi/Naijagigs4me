@@ -1,9 +1,7 @@
 package com.naijagis4me.v1.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.naijagis4me.v1.enums.Role;
+import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -14,14 +12,9 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 @MappedSuperclass
-public abstract class Person extends Address implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "person_id", nullable = false)
-    private Long personId;
+public abstract class Person extends Base {
 
     @Column(nullable = false)
     private String firstName;
@@ -35,7 +28,7 @@ public abstract class Person extends Address implements Serializable {
     @Column(nullable = false)
     private String gender;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -49,11 +42,15 @@ public abstract class Person extends Address implements Serializable {
 
     private String dob;
 
+    @Enumerated
+    private Role role;
+
     @Column(nullable = false)
     private boolean verificationStatus;
 
-    private Address addresses;
+    @OneToMany
+    private Set<Address> addresses;
 
-    private String verified;
+    private boolean verified;
 
 }

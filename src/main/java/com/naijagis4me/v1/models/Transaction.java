@@ -2,10 +2,7 @@ package com.naijagis4me.v1.models;
 
 import com.naijagis4me.v1.enums.PaymentStatus;
 import com.naijagis4me.v1.enums.TransactionStatus;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,18 +10,14 @@ import java.io.Serializable;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-public class Transaction extends Base implements Serializable {
+@Data
+public class Transaction extends Base {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private Long transactionId;
 
-    private double totalAmountJobDone;
-
+    private double totalAmountOfJobDone;
     private String summaryOfWorkDone;
+    private String clientName;
+    private String artisanName;
 
     private TransactionStatus transactionStatus;
 
@@ -34,6 +27,4 @@ public class Transaction extends Base implements Serializable {
     @JoinColumn(name = "clientId", nullable = false)
     private Client client;
 
-    @OneToOne
-    private Artisan artisan;
 }

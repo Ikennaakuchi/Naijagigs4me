@@ -1,11 +1,9 @@
-package com.naijagis4me.v1.pojos;
+package com.naijagis4me.v1.dtos;
 
 import com.naijagis4me.v1.enums.AvailabilityForWork;
-import com.naijagis4me.v1.models.Artisan;
 import com.naijagis4me.v1.models.Rating;
 import com.naijagis4me.v1.models.SkillType;
 
-import javax.persistence.*;
 import java.util.Set;
 
 public class SkillDto {

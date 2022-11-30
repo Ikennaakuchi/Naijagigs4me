@@ -9,16 +9,10 @@ import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@ToString
+@Data
 @Entity
-@Table(name ="client")
-public class Client extends Person implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "client_id", nullable = false)
-    private Long clientId;
+public class Client extends Person {
+
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Request> requests;
