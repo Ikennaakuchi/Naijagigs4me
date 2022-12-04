@@ -1,6 +1,7 @@
 package com.naijagis4me.v1.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.naijagis4me.v1.enums.ArtisanVerificationStatus;
 import com.naijagis4me.v1.enums.AvailabilityForWork;
 import com.naijagis4me.v1.enums.TaskStatus;
@@ -29,9 +30,11 @@ public class Artisan extends Person {
     @Column(name = "task_status", nullable = false)
     private TaskStatus taskStatus;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "artisan",cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Skill> skill;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "artisanId", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<AccountDetails> accountDetails;
 }

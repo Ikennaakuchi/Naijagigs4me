@@ -13,15 +13,15 @@ import java.util.Set;
 public class Request extends Base {
 
     @OneToOne
-    @JoinColumn(name = "Id")
+    @JoinColumn(name = "Id", insertable = false, updatable = false)
     private Skill skill;
 
     @OneToOne
-    @JoinColumn(name = "Id")
+    @JoinColumn(name = "Id", insertable = false, updatable = false)
     private Rating rating;
 
     @ManyToOne
-    @JoinColumn(name = "Id", nullable = false)
+    @JoinColumn(name = "Id", insertable = false, updatable = false)
     private Client client;
 
 }
