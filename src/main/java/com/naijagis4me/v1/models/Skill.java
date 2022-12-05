@@ -26,7 +26,7 @@ public class Skill extends Base {
     private AvailabilityForWork availabilityForWork;
 
     @ManyToOne
-    @JoinColumn(name = "Id")
+    @JoinColumn(name = "Id", insertable = false, updatable = false)
     private Artisan artisan;
 
     private double durationTaskTook;
