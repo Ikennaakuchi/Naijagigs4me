@@ -1,14 +1,11 @@
 package com.naijagis4me.v1.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.naijagis4me.v1.enums.Roles;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.naijagis4me.v1.enums.Role;
+import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -16,9 +13,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Builder
 @Entity
-@Table(name = "persons")
+@Table(name = "users")
 public class Person extends Base {
 
     @Column(nullable = false)
@@ -47,11 +43,19 @@ public class Person extends Base {
 
     private String dob;
 
-    @Enumerated(EnumType.STRING)
-    private Roles role;
+    @Enumerated
+    private Role role;
 
     @Column(nullable = false)
     private boolean verificationStatus;
 
+    @OneToMany
+    private Set<Address> addresses;
+
     private boolean verified;
+
+    @OneToOne
+    @JoinColumn(name = "cId", nullable = false)
+    private Artisan artisan;
+
 }
