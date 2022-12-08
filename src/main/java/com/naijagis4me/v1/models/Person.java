@@ -13,8 +13,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@MappedSuperclass
-public abstract class Person extends Base {
+@Entity
+@Table(name = "users")
+public class Person extends Base {
 
     @Column(nullable = false)
     private String firstName;
@@ -52,5 +53,9 @@ public abstract class Person extends Base {
     private Set<Address> addresses;
 
     private boolean verified;
+
+    @OneToOne
+    @JoinColumn(name = "cId", nullable = false)
+    private Artisan artisan;
 
 }

@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Data
 @MappedSuperclass
 public abstract class Base {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)

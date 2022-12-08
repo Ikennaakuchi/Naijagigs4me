@@ -11,9 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @Entity
-public class Client extends Person {
-
-
+public class Client extends Base{
     @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Request> requests;
 
@@ -23,5 +21,10 @@ public class Client extends Person {
     @OneToOne
     @JoinColumn(name = "transactionId")
     private Transaction transaction;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Person person;
+
 
 }

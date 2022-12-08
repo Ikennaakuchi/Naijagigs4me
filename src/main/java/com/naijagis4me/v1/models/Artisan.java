@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @Entity
-public class Artisan extends Person {
+public class Artisan extends Base {
 
 
     @Enumerated
@@ -37,4 +37,8 @@ public class Artisan extends Person {
     @JsonIgnore
     @OneToMany(mappedBy = "artisanId", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<AccountDetails> accountDetails;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Person person;
 }
