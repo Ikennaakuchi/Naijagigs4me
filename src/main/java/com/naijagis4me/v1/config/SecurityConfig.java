@@ -44,9 +44,9 @@ public class SecurityConfig {
                             .antMatchers("/api/v1/super-admin").hasRole(SUPERADMIN.name())
                             .antMatchers("/api/v1/admin/**").hasAnyRole(ADMIN.name(), SUPERADMIN.name())
                             .antMatchers("/api/v1/auth/admin/**").hasAnyRole(ADMIN.name(), SUPERADMIN.name())
-                            .antMatchers("/ap1/v1/auth/user/**").hasAnyRole(CLIENT.name(), ARTISAN.name())
-                            .antMatchers("/api/v1/user/**").hasAnyRole(CLIENT.name(), ARTISAN.name())
-                            .antMatchers("/api/v1/user/client/**").hasRole(CLIENT.name())
+                            .antMatchers("/ap1/v1/auth/user/**").hasAnyRole(USER.name())
+                            .antMatchers("/api/v1/user/**").hasAnyRole(USER.name())
+                            .antMatchers("/api/v1/user/client/**").hasRole(USER.name())
                             .anyRequest().authenticated();
                 })
                 .userDetailsService(appUserDetailsService)
