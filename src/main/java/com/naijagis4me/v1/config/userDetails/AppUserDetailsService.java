@@ -14,7 +14,7 @@ public class AppUserDetailsService implements UserDetailsService {
     private final AppUserDaoService appUserDaoService;
 
     @Autowired
-    public AppUserDetailsService(@Qualifier("fake") AppUserDaoService appUserDaoService) {
+    public AppUserDetailsService(AppUserDaoService appUserDaoService) {
         this.appUserDaoService = appUserDaoService;
     }
 

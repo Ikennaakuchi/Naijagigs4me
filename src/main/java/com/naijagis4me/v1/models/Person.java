@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Entity
 @Table(name = "users")
 public class Person extends Base {
@@ -53,9 +54,4 @@ public class Person extends Base {
     private Set<Address> addresses;
 
     private boolean verified;
-
-    @OneToOne
-    @JoinColumn(name = "cId", nullable = false)
-    private Artisan artisan;
-
 }
