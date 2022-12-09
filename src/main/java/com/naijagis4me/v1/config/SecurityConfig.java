@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,7 +30,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfig {
-    private final String[] WHITE_LISTED_URLS = { "/", "index", "/css/*", "/js/*" };
+    private final String[] WHITE_LISTED_URLS = { "/", "index", "/css/*", "/js/*", "/api/v1/auth/**", "/api/v1/skilType/read" };
     private final AppUserDetailsService appUserDetailsService;
     private static final String AUTHORITY_PREFIX = "ROLE_";
     private static final String CLAIM_ROLES = "roles";
@@ -43,8 +44,6 @@ public class SecurityConfig {
                 auth.antMatchers(WHITE_LISTED_URLS).permitAll()
                             .antMatchers("/api/v1/super-admin").hasRole(SUPERADMIN.name())
                             .antMatchers("/api/v1/admin/**").hasAnyRole(ADMIN.name(), SUPERADMIN.name())
-                            .antMatchers("/api/v1/auth/admin/**").hasAnyRole(ADMIN.name(), SUPERADMIN.name())
-                            .antMatchers("/ap1/v1/auth/user/**").hasAnyRole(USER.name())
                             .antMatchers("/api/v1/user/**").hasAnyRole(USER.name())
                             .antMatchers("/api/v1/user/client/**").hasRole(USER.name())
                             .anyRequest().authenticated();

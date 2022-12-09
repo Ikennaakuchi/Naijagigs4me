@@ -1,51 +1,36 @@
 package com.naijagis4me.v1.config.userDetails;
 
 import com.google.common.collect.Lists;
+import com.naijagis4me.v1.enums.Role;
+import com.naijagis4me.v1.models.Person;
+import com.naijagis4me.v1.repositories.PersonRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.naijagis4me.v1.enums.Role.*;
 
 @RequiredArgsConstructor
-@Repository("fake")
+@Repository
 public class AppUserDaoServiceImpl implements AppUserDaoService {
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
+    private final PersonRepository personRepository;
     @Override
-    public Optional<AppUserDetails> setAppUserByUsername(String username) {
-        Optional<AppUserDetails> user = getUsersFromMockDB().stream().filter(x -> x.getUsername().equals(username)).findFirst();
-        System.out.println("APP DAO IMPL: " + user.orElseThrow(() -> new UsernameNotFoundException("Not Found")));
-        return user;
-    }
+    public Optional<AppUserDetails> setAppUserByUsername(String email) {
+        Person dbUser = personRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Not Found"));
 
-    public List<AppUserDetails> getUsersFromMockDB() {
-        return Lists.newArrayList(
-            AppUserDetails.builder()
-                    .username("superAdmin")
-                    .password(passwordEncoder.encode("password123"))
-                    .grantedAuthorities(SUPERADMIN.getGrantedAuthorities())
-                    .build(),
-
-                AppUserDetails.builder()
-                        .username("admin")
-                        .password(passwordEncoder.encode("password123"))
-                        .grantedAuthorities(ADMIN.getGrantedAuthorities())
-                        .build(),
-            AppUserDetails.builder()
-                    .username("client")
-                    .password(passwordEncoder.encode("password123"))
-                    .grantedAuthorities(CLIENT.getGrantedAuthorities())
-                    .build(),
-
-            AppUserDetails.builder()
-                    .username("artisan")
-                    .password(passwordEncoder.encode("password123"))
-                    .grantedAuthorities(ARTISAN.getGrantedAuthorities())
-                    .build()
-        );
+        AppUserDetails appUserDetails = AppUserDetails.builder()
+                .username(dbUser.getEmail())
+                .password(dbUser.getPassword())
+                .grantedAuthorities(dbUser.getRole().getGrantedAuthorities())
+                .build();
+        return Optional.of(appUserDetails);
     }
 }
