@@ -1,77 +1,73 @@
 package com.naijagis4me.v1.config;
 
+import com.naijagis4me.v1.config.userDetails.AppUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.Collection;
+
 import static com.naijagis4me.v1.enums.Role.*;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class SecurityConfig {
-    private final PasswordEncoder passwordEncoder;
+    private final String[] WHITE_LISTED_URLS = { "/", "index", "/css/*", "/js/*", "/api/v1/auth/**", "/api/v1/skilType/read" };
+    private final AppUserDetailsService appUserDetailsService;
+    private static final String AUTHORITY_PREFIX = "ROLE_";
+    private static final String CLAIM_ROLES = "roles";
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> {
-                    auth.antMatchers("/", "index", "/css/*", "/js/*").permitAll()
-                            .antMatchers("/api/v1/super-admin/**").hasRole(SUPER_ADMIN.name())
-                            .antMatchers("/api/v1/admin/**").hasAnyRole(ADMIN.name(), SUPER_ADMIN.name())
-                            .antMatchers("/api/v1/auth/admin/**").hasAnyRole(ADMIN.name(), SUPER_ADMIN.name())
-                            .antMatchers("/ap1/v1/auth/user/**").hasAnyRole(CLIENT.name(), ARTISAN.name())
-                            .antMatchers("/api/v1/user/**").hasAnyRole(CLIENT.name(), ARTISAN.name())
-                            .antMatchers("/api/v1/user/client/**").hasRole(CLIENT.name());
-
-                }).formLogin().and()
+                auth.antMatchers(WHITE_LISTED_URLS).permitAll()
+                            .antMatchers("/api/v1/super-admin").hasRole(SUPERADMIN.name())
+                            .antMatchers("/api/v1/admin/**").hasAnyRole(ADMIN.name(), SUPERADMIN.name())
+                            .antMatchers("/api/v1/user/**").hasAnyRole(USER.name())
+                            .antMatchers("/api/v1/user/client/**").hasRole(USER.name())
+                            .anyRequest().authenticated();
+                })
+                .userDetailsService(appUserDetailsService)
+                .oauth2ResourceServer(oauth2ResourceServer ->
+                        oauth2ResourceServer
+                                .jwt(jwt ->
+                                        jwt.jwtAuthenticationConverter(getJwtAuthenticationConverter()))
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .httpBasic(withDefaults())
                 .build();
-
     }
 
-    //    @Override
-    @Bean
-    protected UserDetailsService userDetailsService() {
-        UserDetails superAdmin = User.builder()
-                .username("superAdmin")
-                .password(passwordEncoder.encode("password123"))
-                .roles(ADMIN.name())
-//                .authorities(ADMIN.getGrantedAuthorities())
-                .build();
+    private Converter<Jwt, AbstractAuthenticationToken> getJwtAuthenticationConverter() {
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(getJwtGrantedAuthoritiesConverter());
+        return jwtAuthenticationConverter;
+    }
 
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder.encode("password123"))
-                .roles(ADMIN.name())
-//                .authorities(STUDENT.getGrantedAuthorities())
-                .build();
+    private Converter<Jwt, Collection<GrantedAuthority>> getJwtGrantedAuthoritiesConverter() {
+        JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
+        converter.setAuthorityPrefix(AUTHORITY_PREFIX);
+        converter.setAuthoritiesClaimName(CLAIM_ROLES);
 
-        UserDetails client = User.builder()
-                .username("client")
-                .password(passwordEncoder.encode("password123"))
-                .roles(CLIENT.name())
-//                .authorities(STUDENT.getGrantedAuthorities())
-                .build();
-
-        UserDetails artisan = User.builder()
-                .username("artisan")
-                .password(passwordEncoder.encode("password123"))
-                .roles(ARTISAN.name())
-//                .authorities(ADMINTRAINEE.getGrantedAuthorities())
-                .build();
-
-
-        return new InMemoryUserDetailsManager(superAdmin, admin, artisan, client);
+        return converter;
     }
 }

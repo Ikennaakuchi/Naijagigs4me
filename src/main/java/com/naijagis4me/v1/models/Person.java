@@ -1,11 +1,13 @@
 package com.naijagis4me.v1.models;
 
 import com.naijagis4me.v1.enums.Role;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -13,8 +15,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@MappedSuperclass
-public abstract class Person extends Base {
+@Builder
+@Entity
+@Table(name = "persons")
+public class Person extends Base {
 
     @Column(nullable = false)
     private String firstName;
@@ -52,5 +56,4 @@ public abstract class Person extends Base {
     private Set<Address> addresses;
 
     private boolean verified;
-
 }

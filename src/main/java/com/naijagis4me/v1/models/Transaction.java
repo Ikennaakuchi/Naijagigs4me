@@ -2,10 +2,13 @@ package com.naijagis4me.v1.models;
 
 import com.naijagis4me.v1.enums.PaymentStatus;
 import com.naijagis4me.v1.enums.TransactionStatus;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 @AllArgsConstructor
