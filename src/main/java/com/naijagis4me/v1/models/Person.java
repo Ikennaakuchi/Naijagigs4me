@@ -15,7 +15,7 @@ import java.util.Set;
 @Data
 @Builder
 @Entity
-@Table(name = "users")
+@Table(name = "persons")
 public class Person extends Base {
 
     @Column(nullable = false)
