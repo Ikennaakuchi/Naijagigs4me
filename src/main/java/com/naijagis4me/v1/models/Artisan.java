@@ -5,10 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.naijagis4me.v1.enums.ArtisanVerificationStatus;
 import com.naijagis4me.v1.enums.AvailabilityForWork;
 import com.naijagis4me.v1.enums.TaskStatus;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 @AllArgsConstructor

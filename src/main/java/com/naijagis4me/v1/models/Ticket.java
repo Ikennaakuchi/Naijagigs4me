@@ -2,10 +2,11 @@ package com.naijagis4me.v1.models;
 
 import com.naijagis4me.v1.enums.ComplaintType;
 import com.naijagis4me.v1.enums.TicketStatus;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
