@@ -22,46 +22,46 @@ import java.util.Set;
 @EnableConfigurationProperties(RSAKeyProperties.class)
 @SpringBootApplication
 public class Naijagigs4meV1Application {
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Naijagigs4meV1Application.class, args);
 	}
 
 
-	@Bean
-	public CommandLineRunner commandLineRunner(PersonRepository personRepository) {
-		return args -> {
-
-			Person person = Person.builder()
-					.firstName("Orlando")
-					.lastName("Bloom")
-					.otherNames("Henry")
-					.gender("MALE")
-					.email("orlando@gmail.com")
-					.phoneNumber("081087584747")
-					.password(passwordEncoder.encode("password123"))
-					.dob("12-05-1998")
-					.role(Roles.SUPERADMIN)
-					.verificationStatus(true)
-					.verified(true)
-					.build();
-
-			person.setId(23L);
-
-			Address address1 = Address.builder()
-					.person(person)
-					.country("Australia")
-					.state("Adelaide")
-					.homeAddress("24th Avenue, Courtney Street")
-					.build();
-
-			Set<Address> addressSet = new HashSet<>();
-			addressSet.add(address1);
-
-			personRepository.save(person);
-		};
-	}
+//	@Bean
+//	public CommandLineRunner commandLineRunner(PersonRepository personRepository) {
+//		return args -> {
+//
+//			Person person = Person.builder()
+//					.firstName("Orlando")
+//					.lastName("Bloom")
+//					.otherNames("Henry")
+//					.gender("MALE")
+//					.email("orlando@gmail.com")
+//					.phoneNumber("081087584747")
+//					.password(passwordEncoder.encode("password123"))
+//					.dob("12-05-1998")
+//					.role(Roles.SUPERADMIN)
+//					.verificationStatus(true)
+//					.verified(true)
+//					.build();
+//
+//			person.setId(23L);
+//
+//			Address address1 = Address.builder()
+//					.person(person)
+//					.country("Australia")
+//					.state("Adelaide")
+//					.homeAddress("24th Avenue, Courtney Street")
+//					.build();
+//
+//			Set<Address> addressSet = new HashSet<>();
+//			addressSet.add(address1);
+//
+//			personRepository.save(person);
+//		};
+//	}
 
 }
