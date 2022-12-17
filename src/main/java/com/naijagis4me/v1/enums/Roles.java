@@ -5,7 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.HashSet;
 import java.util.Set;
 
-public enum Role {
+public enum Roles {
     SUPERADMIN, ADMIN, USER;
 
     public Set<SimpleGrantedAuthority> getGrantedAuthorities() {

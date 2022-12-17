@@ -1,6 +1,7 @@
 package com.naijagis4me.v1.models;
 
-import com.naijagis4me.v1.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.naijagis4me.v1.enums.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -46,14 +47,11 @@ public class Person extends Base {
 
     private String dob;
 
-    @Enumerated
-    private Role role;
+    @Enumerated(EnumType.STRING)
+    private Roles role;
 
     @Column(nullable = false)
     private boolean verificationStatus;
-
-    @OneToMany
-    private Set<Address> addresses;
 
     private boolean verified;
 }
