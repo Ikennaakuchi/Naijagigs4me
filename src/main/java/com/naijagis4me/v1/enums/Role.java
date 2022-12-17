@@ -9,10 +9,8 @@ public enum Role {
     SUPERADMIN, ADMIN, USER;
 
     public Set<SimpleGrantedAuthority> getGrantedAuthorities() {
-        java.util.Set<org.springframework.security.core.authority.SimpleGrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new org.springframework.security.core.authority.SimpleGrantedAuthority(this.name()));
-//        authorities.add(new SimpleGrantedAuthority(this.name()));
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority(this.name()));
         return authorities;
     }
-
 }
