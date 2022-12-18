@@ -1,35 +1,35 @@
 package com.naijagis4me.v1.config.userDetails;
 
+import com.naijagis4me.v1.models.Person;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Set;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AppUserDetails implements UserDetails {
-
-    private final String username;
-    private final String password;
-    private final Set<? extends GrantedAuthority> grantedAuthorities;
-
+    private Person person;
 
     @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return grantedAuthorities;
+            return person.getRole().getGrantedAuthorities();
         }
 
         @Override
         public String getPassword() {
-            return password;
+            return person.getPassword();
         }
 
         @Override
         public String getUsername() {
-            return username;
+            return person.getEmail();
         }
 
         @Override
