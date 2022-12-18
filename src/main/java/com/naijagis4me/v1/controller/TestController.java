@@ -1,11 +1,7 @@
 package com.naijagis4me.v1.controller;
 
-import com.naijagis4me.v1.config.tokens.TokenService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -14,7 +10,6 @@ import java.security.Principal;
 @RestController
 @RequiredArgsConstructor
 public class TestController {
-    private final TokenService tokenService;
 
     @GetMapping("/")
     public String getHomepage() {
@@ -55,10 +50,5 @@ public class TestController {
     @GetMapping("/api/v1/user/client")
     public String getArtisanPage() {
         return "This is the user/client page!";
-    }
-
-    @PostMapping("/generateToken")
-    public String generateToken(Authentication authentication){
-        return tokenService.generateToken(authentication);
     }
 }

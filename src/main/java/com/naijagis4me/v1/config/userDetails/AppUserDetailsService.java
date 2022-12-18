@@ -1,30 +1,24 @@
 package com.naijagis4me.v1.config.userDetails;
 
+import com.naijagis4me.v1.models.Person;
+import com.naijagis4me.v1.repositories.PersonRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class AppUserDetailsService implements UserDetailsService {
-    private final AppUserDaoService appUserDaoService;
-
-    @Autowired
-    public AppUserDetailsService(AppUserDaoService appUserDaoService) {
-        this.appUserDaoService = appUserDaoService;
-    }
-
+    private final PersonRepository personRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("TRYING TO LOAD BY USERNAME!!!!!!!!! " + username);
-        return appUserDaoService.setAppUserByUsername(username)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException(String.format("Username %s not found.", username)));
+        Person dbUser = personRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Not Found"));
+        return new AppUserDetails(dbUser);
+
     }
 
 }
