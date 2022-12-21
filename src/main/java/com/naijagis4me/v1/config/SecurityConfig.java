@@ -34,7 +34,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-    private final String[] WHITE_LISTED_URLS = { "/", "index", "/css/*", "/js/*", "/api/v1/auth/**", "/api/v1/skilType/read" };
+    private final String[] WHITE_LISTED_URLS = { "/", "index", "/css/*", "/js/*", "/api/v1/auth/**", "/api/v1/skilType/read", "/send" };
     private final AppUserDetailsService appUserDetailsService;
     private static final String AUTHORITY_PREFIX = "ROLE_";
     private static final String CLAIM_ROLES = "roles";
