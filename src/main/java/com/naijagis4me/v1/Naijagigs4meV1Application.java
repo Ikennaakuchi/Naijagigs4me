@@ -1,19 +1,23 @@
 package com.naijagis4me.v1;
 
 import com.naijagis4me.v1.config.jwt.RSAKeyProperties;
+import com.naijagis4me.v1.dtos.SendEmailRequestDto;
 import com.naijagis4me.v1.enums.Roles;
 import com.naijagis4me.v1.models.Address;
 import com.naijagis4me.v1.models.Person;
 import com.naijagis4me.v1.repositories.PersonRepository;
+import com.naijagis4me.v1.service.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
@@ -24,6 +28,8 @@ import java.util.Set;
 public class Naijagigs4meV1Application {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private EmailSenderService service;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Naijagigs4meV1Application.class, args);
@@ -63,5 +69,6 @@ public class Naijagigs4meV1Application {
 			personRepository.save(person);
 		};
 	}
+
 
 }
