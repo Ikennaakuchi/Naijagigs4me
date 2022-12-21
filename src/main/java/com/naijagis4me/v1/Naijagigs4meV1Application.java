@@ -28,8 +28,6 @@ import java.util.Set;
 public class Naijagigs4meV1Application {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	@Autowired
-	private EmailSenderService service;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Naijagigs4meV1Application.class, args);
