@@ -1,18 +1,10 @@
 package com.naijagis4me.v1.exceptions;
 
-import com.naijagis4me.v1.exceptions.ExceptionErrorManager;
-import com.naijagis4me.v1.exceptions.InvalidEmailException;
 import com.naijagis4me.v1.response.ErrorResponse;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -61,4 +53,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> resourceNotFound(UserNotFoundException ne) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setErrorMessage(ne.getMessage());
+        errorResponse.setStatusCode(HttpStatus.NOT_FOUND.value());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 }

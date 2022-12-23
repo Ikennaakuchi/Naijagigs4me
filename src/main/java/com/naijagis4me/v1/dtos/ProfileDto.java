@@ -1,6 +1,8 @@
 package com.naijagis4me.v1.dtos;
 
 import com.naijagis4me.v1.enums.Roles;
+import lombok.Builder;
+import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
@@ -8,6 +10,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 
+@Builder
+@Data
 public class ProfileDto {
 
     private String firstName;
@@ -21,8 +25,6 @@ public class ProfileDto {
     private String email;
 
     private String phoneNumber;
-
-    private String password;
 
     private String dob;
 
