@@ -42,10 +42,4 @@ public class AuthController {
                     tokenService.generateToken(user));
         return new ApiResponse<>("Login Failed", HttpStatus.BAD_REQUEST, "Some Error Occurred!");
     }
-
-    @GetMapping("/profile/{userId}")
-    public ResponseEntity<ProfileDto> viewProfile(@PathVariable Long userId){
-        ProfileDto profileDto = personService.viewProfile(userId);
-        return new ResponseEntity<>(profileDto, HttpStatus.OK);
-    }
 }

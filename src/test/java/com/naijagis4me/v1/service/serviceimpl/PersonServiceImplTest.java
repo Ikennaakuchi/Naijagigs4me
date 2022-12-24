@@ -8,11 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class PersonServiceImplTest {
 
@@ -23,6 +25,7 @@ class PersonServiceImplTest {
     PersonServiceImpl personService;
 
     Person person;
+    Authentication authentication;
 
     @BeforeEach
     void setUp() {
@@ -36,15 +39,17 @@ class PersonServiceImplTest {
                 .phoneNumber("09038393221")
                 .build();
 
+        authentication = mock(Authentication.class);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     @Test
     void viewProfile() {
-            when(personRepository.findById(1L)).thenReturn(Optional.of(person));
+            when(personRepository.findByEmail("iykejosh@email.com")).thenReturn(Optional.of(person));
+            when(authentication.getName()).thenReturn("iykejosh@email.com");
+            ProfileDto dto = personService.viewProfile();
 
-            ProfileDto dto = personService.viewProfile(1L);
-
-            verify(personRepository).findById(1L);
+            verify(personRepository).findByEmail("iykejosh@email.com");
 
             assertEquals("Iyke", dto.getFirstName());
             assertEquals("Josh", dto.getLastName());

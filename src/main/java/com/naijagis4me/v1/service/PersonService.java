@@ -5,5 +5,5 @@ import com.naijagis4me.v1.models.Person;
 import org.springframework.http.ResponseEntity;
 
 public interface PersonService {
-    ProfileDto viewProfile(Long userId);
+    ProfileDto viewProfile();
 }
