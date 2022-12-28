@@ -2,20 +2,20 @@ package com.naijagis4me.v1.controller;
 
 import com.naijagis4me.v1.config.userDetails.AppUserDetailsService;
 import com.naijagis4me.v1.dtos.LoginDto;
+import com.naijagis4me.v1.dtos.ProfileDto;
 import com.naijagis4me.v1.models.Person;
 import com.naijagis4me.v1.response.ApiResponse;
 import com.naijagis4me.v1.config.tokens.JwtTokenGeneratorService;
+import com.naijagis4me.v1.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,6 +26,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AppUserDetailsService userDetailsService;
     private final JwtTokenGeneratorService tokenService;
+    private final PersonService personService;
 
 
     @PostMapping("login")
@@ -41,5 +42,4 @@ public class AuthController {
                     tokenService.generateToken(user));
         return new ApiResponse<>("Login Failed", HttpStatus.BAD_REQUEST, "Some Error Occurred!");
     }
-
 }
